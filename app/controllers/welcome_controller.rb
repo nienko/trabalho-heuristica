@@ -25,35 +25,39 @@ class WelcomeController < ApplicationController
 
   def index
     inicial = INVESTIMENTOSINICIAIS.clone
-    dadoInicial = {inicial: inicial, total: calculaInvestimentoAnual(inicial)}
+    dadosColecao = []
+    iteracaoAtual = criaApresentador(inicial)
+    dadosColecao << iteracaoAtual
 
-    dadosVizinhos = []
-    vizinhos = criaVizinhos(inicial)
+    # if iteracaoAtual[:melhorVizinho][:total] > iteracaoAtual[:dadoInicial][:total] 
 
-    vizinhos.each do |vizinho|
-      vizinho = {vizinho: vizinho, total: calculaInvestimentoAnual(vizinho)}
-      dadosVizinhos << vizinho
-    end
-
-    @dadosView = {dadoInicial: dadoInicial, dadosVizinhos: dadosVizinhos}
+    @dadosView = {dados: dadosColecao}
   end
 
   def random
     inicial = INVESTIMENTOSINICIAIS.shuffle
+    @dadosView = criaApresentador(inicial)
+  end
+
+  private
+
+  def criaApresentador(inicial)
     dadoInicial = {inicial: inicial, total: calculaInvestimentoAnual(inicial)}
 
     dadosVizinhos = []
     vizinhos = criaVizinhos(inicial)
+    melhor = dadoInicial[:total]
 
     vizinhos.each do |vizinho|
       vizinho = {vizinho: vizinho, total: calculaInvestimentoAnual(vizinho)}
+      if vizinho[:total] > melhor
+        melhor = vizinho[:total]
+      end
       dadosVizinhos << vizinho
     end
 
-    @dadosView = {dadoInicial: dadoInicial, dadosVizinhos: dadosVizinhos}
+    {dadoInicial: dadoInicial, dadosVizinhos: dadosVizinhos, melhorVizinho: melhor}
   end
-
-  private
 
   def criaVizinhos(investimentos)
     vizinhos = []

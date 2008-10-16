@@ -1,15 +1,13 @@
-<h1>Dado Inicial</h1>
-  <p><%= @dadosView[:dadoInicial][:inicial] %> - Total: <%= @dadosView[:dadoInicial][:total] %></p>
+<% @dadosView.each do |iteracao| %>
+  <h1>Dado Inicial</h1>
+    <p><%= iteracao[:dadoInicial][:inicial] %> - Total: <%= iteracao[:dadoInicial][:total] %></p>
 
-<h2>Vizinhos</h2>
-  <% melhorVizinho = @dadosView[:dadosVizinhos].first %>
-  <% @dadosView[:dadosVizinhos].each do |vizinho| %>
-    <% if vizinho[:total] > melhorVizinho [:total] %>
-      <% melhorVizinho = vizinho %>
+  <h2>Vizinhos</h2>
+    <% iteracao[:dadosVizinhos].each do |vizinho| %>
+      <%= vizinho[:vizinho] %> - <strong>Total:</strong> <%= vizinho[:total] %>
+      <br />
     <% end %>
-    <%= vizinho[:vizinho] %> - <strong>Total:</strong> <%= vizinho[:total] %>
-    <br />
-  <% end %>
 
-<h2>Melhor Vizinho</h2>
-  <%= melhorVizinho[:vizinho] %> - <strong>Total:</strong> <%= melhorVizinho[:total] %>
+  <h2>Melhor Vizinho</h2>
+    <%= iteracao[:melhorVizinho] %> - <strong>Total:</strong> <%= iteracao[:melhorVizinho] %>
+<% end %>
