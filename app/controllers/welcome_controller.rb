@@ -21,10 +21,36 @@ class WelcomeController < ApplicationController
   ACAOJ = {mes1: -0.00045, mes2: 0.07992, mes3: 0.09900, mes4: 0.00696, mes5: 0.00697,
     mes6: -0.00978, mes7: 0.03891, mes8: 0.00579, mes9: -0.03813, mes10: 0.09798, mes11: -0.04462, mes12: -0.02473}
 
+  INVESTIMENTOSINICIAIS = [0.3, 0.25, 0.2, 0.15, 0.1, 0, 0, 0, 0, 0]
+
   def index
-    investimentosIniciais = [0.3, 0.25, 0.2, 0.15, 0.1, 0, 0, 0, 0, 0]
-    @dados = criaVizinhos(investimentosIniciais)
-    # totais = calculaInvestimentoAnual(investimentosIniciais)
+    inicial = INVESTIMENTOSINICIAIS.clone
+    dadoInicial = {inicial: inicial, total: calculaInvestimentoAnual(inicial)}
+
+    dadosVizinhos = []
+    vizinhos = criaVizinhos(inicial)
+
+    vizinhos.each do |vizinho|
+      vizinho = {vizinho: vizinho, total: calculaInvestimentoAnual(vizinho)}
+      dadosVizinhos << vizinho
+    end
+
+    @dadosView = {dadoInicial: dadoInicial, dadosVizinhos: dadosVizinhos, melhorVizinho: []}
+  end
+
+  def random
+    inicial = INVESTIMENTOSINICIAIS.shuffle
+    dadoInicial = {inicial: inicial, total: calculaInvestimentoAnual(inicial)}
+
+    dadosVizinhos = []
+    vizinhos = criaVizinhos(inicial)
+
+    vizinhos.each do |vizinho|
+      vizinho = {vizinho: vizinho, total: calculaInvestimentoAnual(vizinho)}
+      dadosVizinhos << vizinho
+    end
+
+    @dadosView = {dadoInicial: dadoInicial, dadosVizinhos: dadosVizinhos, melhorVizinho: []}
   end
 
   private
@@ -43,10 +69,15 @@ class WelcomeController < ApplicationController
   end
 
   def adicionaAosVizinhos(i, j, investimentos)
-    vizinho = investimentos
+    vizinho = investimentos.clone
 
-    vizinho[1] = 'pqp'
-    return "#{investimentos}"
+    valorI = investimentos[i]
+    valorJ = investimentos[j]
+
+    vizinho[i] = valorJ
+    vizinho[j] = valorI
+
+    return vizinho
   end
 
   def calculaInvestimentoAnual(investimentos)
