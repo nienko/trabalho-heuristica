@@ -35,7 +35,7 @@ class WelcomeController < ApplicationController
       dadosVizinhos << vizinho
     end
 
-    @dadosView = {dadoInicial: dadoInicial, dadosVizinhos: dadosVizinhos, melhorVizinho: []}
+    @dadosView = {dadoInicial: dadoInicial, dadosVizinhos: dadosVizinhos}
   end
 
   def random
@@ -50,7 +50,7 @@ class WelcomeController < ApplicationController
       dadosVizinhos << vizinho
     end
 
-    @dadosView = {dadoInicial: dadoInicial, dadosVizinhos: dadosVizinhos, melhorVizinho: []}
+    @dadosView = {dadoInicial: dadoInicial, dadosVizinhos: dadosVizinhos}
   end
 
   private

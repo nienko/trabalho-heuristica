@@ -2,7 +2,14 @@
   <p><%= @dadosView[:dadoInicial][:inicial] %> - Total: <%= @dadosView[:dadoInicial][:total] %></p>
 
 <h2>Vizinhos</h2>
+  <% melhorVizinho = @dadosView[:dadosVizinhos].first %>
   <% @dadosView[:dadosVizinhos].each do |vizinho| %>
-   <%= vizinho[:vizinho] %>    -    <strong>Total:</strong> <%= vizinho[:total] %>
-   <br />
+    <% if vizinho[:total] > melhorVizinho [:total] %>
+      <% melhorVizinho = vizinho %>
+    <% end %>
+    <%= vizinho[:vizinho] %> - <strong>Total:</strong> <%= vizinho[:total] %>
+    <br />
   <% end %>
+
+<h2>Melhor Vizinho</h2>
+  <%= melhorVizinho[:vizinho] %> - <strong>Total:</strong> <%= melhorVizinho[:total] %>
