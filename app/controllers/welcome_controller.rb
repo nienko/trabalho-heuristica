@@ -22,11 +22,32 @@ class WelcomeController < ApplicationController
     mes6: -0.00978, mes7: 0.03891, mes8: 0.00579, mes9: -0.03813, mes10: 0.09798, mes11: -0.04462, mes12: -0.02473}
 
   def index
-    investimentos = [0.3, 0.25, 0.2, 0.15, 0.1, 0, 0, 0, 0, 0]
-    @totais = calculaInvestimentoAnual(investimentos)
+    investimentosIniciais = [0.3, 0.25, 0.2, 0.15, 0.1, 0, 0, 0, 0, 0]
+    @dados = criaVizinhos(investimentosIniciais)
+    # totais = calculaInvestimentoAnual(investimentosIniciais)
   end
 
   private
+
+  def criaVizinhos(investimentos)
+    vizinhos = []
+    (0..8).each do |i|
+      ((i+1)..9).each do |j|
+        if investimentos[i] != 0 || investimentos[j] != 0
+          vizinhos << adicionaAosVizinhos(i, j, investimentos)
+        end
+      end
+    end
+
+    return vizinhos
+  end
+
+  def adicionaAosVizinhos(i, j, investimentos)
+    vizinho = investimentos
+
+    vizinho[1] = 'pqp'
+    return "#{investimentos}"
+  end
 
   def calculaInvestimentoAnual(investimentos)
     total = 0
