@@ -1,4 +1,4 @@
-<% @dadosView.each do |iteracao| %>
+<% @dadosView[:dados].each do |iteracao| %>
   <h1>Dado Inicial</h1>
     <p><%= iteracao[:dadoInicial][:inicial] %> - Total: <%= iteracao[:dadoInicial][:total] %></p>
 

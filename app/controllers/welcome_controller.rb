@@ -29,7 +29,8 @@ class WelcomeController < ApplicationController
     iteracaoAtual = criaApresentador(inicial)
     dadosColecao << iteracaoAtual
 
-    # if iteracaoAtual[:melhorVizinho][:total] > iteracaoAtual[:dadoInicial][:total] 
+    if iteracaoAtual[:melhorVizinho][:total] > iteracaoAtual[:dadoInicial][:total]
+      proximaIteracao =  criaApresentador(iteracaoAtual)
 
     @dadosView = {dados: dadosColecao}
   end
