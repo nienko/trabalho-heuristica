@@ -1,5 +1,9 @@
+<% contador = 1 %>
 <% @dadosView[:dados].each do |iteracao| %>
-  <h1>Dado Inicial</h1>
+  <h1><%= contador %></h1>
+  <% contador += 1 %>
+
+  <h2>Dado Inicial </h2>
     <p><%= iteracao[:dadoInicial][:inicial] %> - Total: <%= iteracao[:dadoInicial][:total] %></p>
 
   <h2>Vizinhos</h2>
@@ -9,5 +13,5 @@
     <% end %>
 
   <h2>Melhor Vizinho</h2>
-    <%= iteracao[:melhorVizinho] %> - <strong>Total:</strong> <%= iteracao[:melhorVizinho] %>
+    <%= iteracao[:melhorVizinho][:vizinho] %> - <strong>Total:</strong> <%= iteracao[:melhorVizinho][:total] %>
 <% end %>
