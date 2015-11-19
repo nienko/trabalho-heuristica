@@ -21,16 +21,16 @@ class WelcomeController < ApplicationController
   ACAOJ = {mes1: -0.00045, mes2: 0.07992, mes3: 0.09900, mes4: 0.00696, mes5: 0.00697,
     mes6: -0.00978, mes7: 0.03891, mes8: 0.00579, mes9: -0.03813, mes10: 0.09798, mes11: -0.04462, mes12: -0.02473}
 
-  INVESTIMENTOSINICIAIS = [0.3, 0.25, 0.2, 0.15, 0.1, 0, 0, 0, 0, 0]
+  INVESTIMENTOS_INICIAIS = [0.3, 0.25, 0.2, 0.15, 0.1, 0, 0, 0, 0, 0]
 
   def index
-    inicial = INVESTIMENTOSINICIAIS.clone
+    inicial = INVESTIMENTOS_INICIAIS.clone
 
     @dadosView = {dados: criaDadosView(inicial)}
   end
 
   def random
-    inicial = INVESTIMENTOSINICIAIS.shuffle
+    inicial = INVESTIMENTOS_INICIAIS.shuffle
 
     @dadosView = {dados: criaDadosView(inicial)}
 
@@ -75,24 +75,17 @@ class WelcomeController < ApplicationController
     (0..8).each do |i|
       ((i+1)..9).each do |j|
         if investimentos[i] != 0 || investimentos[j] != 0
-          vizinhos << adicionaAosVizinhos(i, j, investimentos)
+          vizinho = investimentos.clone
+
+          vizinho[i] = investimentos[j]
+          vizinho[j] = investimentos[i]
+
+          vizinhos << vizinho
         end
       end
     end
 
     return vizinhos
-  end
-
-  def adicionaAosVizinhos(i, j, investimentos)
-    vizinho = investimentos.clone
-
-    valorI = investimentos[i]
-    valorJ = investimentos[j]
-
-    vizinho[i] = valorJ
-    vizinho[j] = valorI
-
-    return vizinho
   end
 
   def calculaInvestimentoAnual(investimentos)
