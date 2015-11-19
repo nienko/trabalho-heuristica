@@ -1,17 +1,30 @@
 <% contador = 1 %>
 <% @dadosView[:dados].each do |iteracao| %>
-  <h1><%= contador %></h1>
-  <% contador += 1 %>
-
-  <h2>Dado Inicial </h2>
-    <p><%= iteracao[:dadoInicial][:inicial] %> - Total: <%= iteracao[:dadoInicial][:total] %></p>
-
-  <h2>Vizinhos</h2>
+  <table border="1" style="width:50%">
+    <caption><%= "Iteração Nº #{contador}"%></caption>
+    <thead>
+      <tr class="dado-inicial">
+        <td><%= iteracao[:dadoInicial][:inicial] %></td>
+        <td><%= iteracao[:dadoInicial][:total] %></td>
+      </tr>
+    </thead>
+    <tr>
+      <th>Vizinhos</th>
+      <th>Total</th>
+    </tr>
     <% iteracao[:dadosVizinhos].each do |vizinho| %>
-      <%= vizinho[:vizinho] %> - <strong>Total:</strong> <%= vizinho[:total] %>
-      <br />
+      <% if (vizinho[:total] ==  iteracao[:melhorVizinho][:total]) %>
+        <tr class="melhor-vizinho">
+      <% else %>
+        <tr>
+      <% end %>
+        <td><%= vizinho[:vizinho] %></td>
+        <td><%= vizinho[:total] %></td>
+      </tr>
     <% end %>
+  </table>
+  <br />
+  <br />
 
-  <h2>Melhor Vizinho</h2>
-    <%= iteracao[:melhorVizinho][:vizinho] %> - <strong>Total:</strong> <%= iteracao[:melhorVizinho][:total] %>
+  <% contador += 1 %>
 <% end %>

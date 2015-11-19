@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+ tr.melhor-vizinho {
+ 	background-color: #90EE90; color: black;
+ }
+
+ tr.dado-inicial {
+ 	background-color: #F5F5F5; color: black;
+ }

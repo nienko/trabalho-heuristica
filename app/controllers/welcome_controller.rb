@@ -33,6 +33,8 @@ class WelcomeController < ApplicationController
     inicial = INVESTIMENTOSINICIAIS.shuffle
 
     @dadosView = {dados: criaDadosView(inicial)}
+
+    render :index
   end
 
   private
